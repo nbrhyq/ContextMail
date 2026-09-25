@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.env
+*.py[cod]
+*.db
+*.egg-info/
+uploads/
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local

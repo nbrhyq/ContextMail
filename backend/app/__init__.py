@@ -1,0 +1,2 @@
+"""ContextMail application package."""
+
