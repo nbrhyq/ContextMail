@@ -9,4 +9,6 @@ __pycache__/
 uploads/
 frontend/node_modules/
 frontend/.next/
+frontend/out/
 frontend/.env.local
+.pnpm-store/

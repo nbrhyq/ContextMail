@@ -1,180 +1,313 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000/api/v1";
+type ScenarioId = "job" | "phd" | "school";
+type DemoStatus = "idle" | "running" | "ready" | "approved" | "rejected";
 
-type DocumentInfo = { id: string; filename: string; size_bytes?: number };
-type PlanStep = { id: string; agent: string; action: string; tools: string[] };
-type TraceEvent = { actor: string; action: string; status: string; summary: string };
-type Draft = { recipient: string; subject: string; body: string; attachments: string[] };
-type Run = {
-  id: string;
-  status: string;
-  mock_message_id?: string;
-  state: {
-    intent: string;
-    missing_context: string[];
-    execution_plan: PlanStep[];
-    execution_trace: TraceEvent[];
-    draft?: Draft;
-    approval_status: string;
-    llm_call_count: number;
-    iteration_count: number;
-  };
+type Scenario = {
+  id: ScenarioId;
+  label: string;
+  eyebrow: string;
+  goal: string;
+  materials: string[];
+  intent: string;
+  task: string;
+  complexity: string;
+  agents: string[];
+  steps: { title: string; detail: string }[];
+  evidence: { title: string; source: string; content: string; simulated?: boolean }[];
+  email: { to: string; subject: string; body: string; attachments: string[] };
 };
 
-const intentNames: Record<string, string> = {
-  JOB_APPLICATION: "Job application",
-  PHD_OUTREACH: "PhD outreach",
-  SCHOOL_AFFAIRS: "School affairs",
-  OTHER: "General communication",
-  UNCERTAIN: "Needs clarification",
+const scenarios: Record<ScenarioId, Scenario> = {
+  job: {
+    id: "job",
+    label: "Job Application",
+    eyebrow: "Career outreach",
+    goal: "Use my CV and this AI Product Manager job description to draft a personalized outreach email.",
+    materials: ["Resume.pdf", "AI_Product_Manager_JD.pdf"],
+    intent: "Job Application",
+    task: "Recruiter Outreach",
+    complexity: "Medium",
+    agents: ["Planner", "Context", "Writer", "Reviewer"],
+    steps: [
+      { title: "Intent identified", detail: "Job application" },
+      { title: "Task planned", detail: "Recruiter outreach" },
+      { title: "Materials understood", detail: "Resume + job description" },
+      { title: "Relevant experience matched", detail: "Product strategy · AI workflows" },
+      { title: "Draft generated", detail: "Personalized to the role" },
+      { title: "Claims reviewed", detail: "Evidence-linked and complete" },
+    ],
+    evidence: [
+      { title: "Candidate background", source: "Resume.pdf", content: "Product discovery, AI prototyping and cross-functional delivery experience." },
+      { title: "Role priority", source: "AI_Product_Manager_JD.pdf", content: "The role emphasizes agent workflows, user research and measurable product outcomes." },
+    ],
+    email: {
+      to: "jordan.lee@example-company.com",
+      subject: "AI Product Manager — product thinking meets agent delivery",
+      body: "Hi Jordan,\n\nI’m reaching out about the AI Product Manager role. My background combines product discovery, hands-on AI prototyping and cross-functional delivery — closely matching the role’s focus on turning agent capabilities into measurable user outcomes.\n\nI’d value the chance to share how I approach ambiguous AI problems, from defining the user need through to evaluation and iteration. I’ve attached my resume for context.\n\nWould you be open to a short conversation next week?\n\nBest,\nAlex",
+      attachments: ["Resume.pdf"],
+    },
+  },
+  phd: {
+    id: "phd",
+    label: "PhD Outreach",
+    eyebrow: "Research enquiry",
+    goal: "Use my CV and research proposal to draft a personalized PhD enquiry to Professor Alex Smith.",
+    materials: ["CV.pdf", "Research_Proposal.pdf"],
+    intent: "PhD Outreach",
+    task: "Supervisor Enquiry",
+    complexity: "High",
+    agents: ["Planner", "Context", "Research", "Writer", "Reviewer"],
+    steps: [
+      { title: "Intent identified", detail: "PhD outreach" },
+      { title: "Task planned", detail: "Supervisor enquiry" },
+      { title: "Materials understood", detail: "CV + research proposal" },
+      { title: "Research context prepared", detail: "Simulated professor profile" },
+      { title: "Research overlap mapped", detail: "3D vision · multimodal reasoning" },
+      { title: "Draft generated", detail: "Research-specific enquiry" },
+      { title: "Claims reviewed", detail: "Sources checked" },
+    ],
+    evidence: [
+      { title: "Candidate background", source: "CV.pdf", content: "Computer vision and applied AI project experience, including 3D scene understanding." },
+      { title: "Research interest", source: "Research_Proposal.pdf", content: "3D Question Answering with grounded multimodal representations." },
+      { title: "Professor information", source: "Demo research source", content: "Professor Alex Smith studies multimodal reasoning and 3D vision at Example University.", simulated: true },
+    ],
+    email: {
+      to: "alex.smith@example-university.edu",
+      subject: "Prospective PhD enquiry — 3D vision and multimodal reasoning",
+      body: "Dear Professor Smith,\n\nI’m writing to ask whether you may be accepting PhD students for the next intake. My current research interest is 3D Question Answering, particularly how grounded multimodal representations can support reasoning about complex scenes.\n\nYour simulated demo profile’s focus on multimodal reasoning and 3D vision closely aligns with the direction of my proposal. My background includes computer vision and applied AI projects, and I would be excited to explore how this experience could contribute to your group.\n\nI’ve attached my CV and research proposal for context. If the topic is relevant to your current supervision plans, I would be grateful for the opportunity to discuss it.\n\nKind regards,\nAlex",
+      attachments: ["CV.pdf", "Research_Proposal.pdf"],
+    },
+  },
+  school: {
+    id: "school",
+    label: "School Affairs",
+    eyebrow: "Course communication",
+    goal: "Help me email my course coordinator about an assessment submission issue.",
+    materials: ["Assessment_Screenshot.png"],
+    intent: "School Affairs",
+    task: "Assessment Support",
+    complexity: "Low",
+    agents: ["Planner", "Writer", "Reviewer"],
+    steps: [
+      { title: "Intent identified", detail: "School affairs" },
+      { title: "Task planned", detail: "Assessment support" },
+      { title: "Key facts prepared", detail: "Submission issue + timestamp" },
+      { title: "Draft generated", detail: "Clear and respectful" },
+      { title: "Claims reviewed", detail: "No unsupported assumptions" },
+    ],
+    evidence: [
+      { title: "Submission issue", source: "User-provided details", content: "The student attempted to submit before the deadline but received an upload error." },
+      { title: "Supporting material", source: "Assessment_Screenshot.png", content: "Screenshot showing the submission error and timestamp." },
+    ],
+    email: {
+      to: "course.coordinator@example-university.edu",
+      subject: "Assessment submission issue — request for guidance",
+      body: "Dear Course Coordinator,\n\nI’m writing about an issue I encountered while submitting the assessment. I attempted to upload the file before the deadline, but the system returned an error. I’ve attached a screenshot showing the error and timestamp.\n\nCould you please advise on the appropriate next step? I can provide the completed assessment file and any additional details you need.\n\nThank you for your help.\n\nKind regards,\nAlex",
+      attachments: ["Assessment_Screenshot.png"],
+    },
+  },
 };
+
+const problems = [
+  ["Context is fragmented", "CVs, job descriptions, proposals and course details live in different places."],
+  ["Research takes time", "Important messages often require recipient or organization context before writing starts."],
+  ["Generic AI lacks context", "One prompt tends to produce generic language rather than a goal-specific strategy."],
+  ["AI can hallucinate", "Confident prose can include claims that were never supported by the source material."],
+  ["Users need control", "Important external communication should never leave without deliberate approval."],
+];
+
+const howItWorks = [
+  ["01", "Understand", "Identify the user’s goal, recipient and communication scenario."],
+  ["02", "Plan", "Decide what context, tools and specialist agents the task actually needs."],
+  ["03", "Prepare Context", "Turn materials and relevant information into traceable evidence."],
+  ["04", "Generate & Review", "Draft the message, then independently check quality and claims."],
+  ["05", "Approve", "Show the complete action preview and wait for the user’s decision."],
+];
+
+const evaluation = [
+  ["Intent Accuracy", "Did the system understand the communication task?"],
+  ["Task Completion", "Did the workflow fully address the user’s goal?"],
+  ["Draft Acceptance", "Would the user accept the result without a rewrite?"],
+  ["Unsupported Claims", "Did the draft introduce information without evidence?"],
+  ["User Edit Rate", "How much did the user need to change?"],
+  ["Time-to-Ready", "How quickly did the task reach approval?"],
+];
+
+function Arrow() {
+  return <span className="flow-arrow" aria-hidden="true">→</span>;
+}
 
 export default function Home() {
-  const [goal, setGoal] = useState("");
-  const [recipient, setRecipient] = useState({ name: "", email: "", role: "", organization: "" });
-  const [documents, setDocuments] = useState<DocumentInfo[]>([]);
-  const [run, setRun] = useState<Run | null>(null);
-  const [draft, setDraft] = useState<Draft | null>(null);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
+  const [scenarioId, setScenarioId] = useState<ScenarioId>("phd");
+  const [status, setStatus] = useState<DemoStatus>("idle");
+  const [completedSteps, setCompletedSteps] = useState(0);
+  const [plannerOpen, setPlannerOpen] = useState(true);
+  const [editing, setEditing] = useState(false);
+  const [subject, setSubject] = useState(scenarios.phd.email.subject);
+  const [body, setBody] = useState(scenarios.phd.email.body);
+  const runToken = useRef(0);
+  const scenario = scenarios[scenarioId];
 
-  const ready = run?.status === "READY_FOR_APPROVAL";
-  const statusText = useMemo(() => {
-    if (!run) return "Describe what you want to accomplish.";
-    if (run.status === "NEEDS_INPUT") return `More information needed: ${run.state.missing_context.join(", ")}`;
-    if (run.status === "SENT") return `Mock email action complete · ${run.mock_message_id}`;
-    return run.status.replaceAll("_", " ").toLowerCase();
-  }, [run]);
+  useEffect(() => {
+    runToken.current += 1;
+    setStatus("idle");
+    setCompletedSteps(0);
+    setEditing(false);
+    setSubject(scenario.email.subject);
+    setBody(scenario.email.body);
+  }, [scenario, scenarioId]);
 
-  async function uploadFiles(event: ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(event.target.files ?? []);
-    setBusy(true);
-    setError("");
-    try {
-      const uploaded = await Promise.all(files.map(async (file) => {
-        const form = new FormData();
-        form.append("file", file);
-        const response = await fetch(`${API}/uploads`, { method: "POST", body: form });
-        if (!response.ok) throw new Error((await response.json()).detail ?? "Upload failed");
-        return response.json() as Promise<DocumentInfo>;
-      }));
-      setDocuments((current) => [...current, ...uploaded]);
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Upload failed");
-    } finally {
-      setBusy(false);
-      event.target.value = "";
+  async function runDemo() {
+    const token = ++runToken.current;
+    setStatus("running");
+    setCompletedSteps(0);
+    setEditing(false);
+    setSubject(scenario.email.subject);
+    setBody(scenario.email.body);
+    for (let index = 1; index <= scenario.steps.length; index += 1) {
+      await new Promise((resolve) => window.setTimeout(resolve, 420));
+      if (runToken.current !== token) return;
+      setCompletedSteps(index);
     }
+    await new Promise((resolve) => window.setTimeout(resolve, 280));
+    if (runToken.current === token) setStatus("ready");
   }
 
-  async function start(event: FormEvent) {
-    event.preventDefault();
-    setBusy(true);
-    setError("");
-    setRun(null);
-    try {
-      const response = await fetch(`${API}/runs`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_request: goal, recipient, document_ids: documents.map((item) => item.id) }),
-      });
-      if (!response.ok) throw new Error((await response.json()).detail ?? "Agent run failed");
-      const nextRun: Run = await response.json();
-      setRun(nextRun);
-      setDraft(nextRun.state.draft ?? null);
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Agent run failed");
-    } finally {
-      setBusy(false);
-    }
+  function selectScenario(id: ScenarioId) {
+    setScenarioId(id);
+    document.getElementById("demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  async function saveDraft() {
-    if (!run || !draft) return;
-    setBusy(true);
-    const response = await fetch(`${API}/runs/${run.id}/draft`, {
-      method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(draft),
-    });
-    const updated = await response.json();
-    setRun(updated);
-    setDraft(updated.state.draft);
-    setBusy(false);
-  }
-
-  async function decide(action: "approve" | "reject") {
-    if (!run) return;
-    setBusy(true);
-    const response = await fetch(`${API}/runs/${run.id}/${action}`, { method: "POST" });
-    const updated = await response.json();
-    setRun(updated);
-    setBusy(false);
+  function approve() {
+    setEditing(false);
+    setStatus("approved");
   }
 
   return (
     <main>
-      <header className="topbar">
-        <a className="brand" href="#">Context<span>Mail</span></a>
-        <div className="status-dot"><i /> Mock-safe mode</div>
+      <header className="site-header">
+        <a className="brand" href="#top" aria-label="ContextMail home">Context<span>Mail</span></a>
+        <nav aria-label="Primary navigation">
+          <a href="#how-it-works">How it works</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#evaluation">Evaluation</a>
+        </nav>
+        <a className="nav-cta" href="#demo">Try demo</a>
       </header>
 
-      <section className="hero">
-        <p className="eyebrow">Intent-aware communication agent</p>
-        <h1>Turn context into<br /><em>considered communication.</em></h1>
-        <p className="lead">ContextMail plans the work, gathers evidence, drafts, reviews, and waits for you before taking action.</p>
+      <section className="hero section-shell" id="top">
+        <div className="hero-copy">
+          <p className="eyebrow"><span /> AI Communication Agent</p>
+          <h1>Your AI agent for <em>important emails.</em></h1>
+          <p className="hero-lead">Give ContextMail your goal and materials. It understands the task, plans the workflow, drafts the email and verifies it before you send.</p>
+          <div className="hero-actions">
+            <a className="button button-primary" href="#demo">Try Interactive Demo <span>→</span></a>
+            <a className="button button-quiet" href="#how-it-works">View How It Works</a>
+          </div>
+          <p className="hero-note">Built for high-context communication: job applications, research outreach and school affairs.</p>
+        </div>
+        <div className="hero-visual" aria-label="ContextMail workflow summary">
+          <div className="visual-topline"><span>Goal received</span><b>Planning</b></div>
+          <div className="goal-card"><small>User goal</small><p>“Use my materials to write a personalized PhD enquiry.”</p><div><span>CV.pdf</span><span>Proposal.pdf</span></div></div>
+          <div className="mini-flow">
+            {["Goal", "Plan", "Research", "Write", "Review", "Approve"].map((item, index) => <div key={item}><i>{String(index + 1).padStart(2, "0")}</i><span>{item}</span>{index < 5 && <Arrow />}</div>)}
+          </div>
+          <div className="visual-result"><i>✓</i><div><strong>Ready for approval</strong><span>Claims reviewed · 2 sources attached</span></div></div>
+        </div>
       </section>
 
-      <div className="workspace">
-        <form className="panel compose" onSubmit={start}>
-          <div className="panel-head"><span>01</span><div><h2>Set the goal</h2><p>Tell the agent what outcome you need.</p></div></div>
-          <label className="field-label" htmlFor="goal">Communication goal</label>
-          <textarea id="goal" value={goal} onChange={(event) => setGoal(event.target.value)} required
-            placeholder="Use my CV and research proposal, research Professor Chen’s recent work, and draft an email asking about PhD opportunities." />
+      <section className="trust-strip" aria-label="Product principles">
+        <span>Understands intent</span><span>Routes dynamically</span><span>Uses evidence</span><span>Waits for approval</span>
+      </section>
 
-          <div className="divider" />
-          <div className="field-row">
-            <label><span>Recipient name</span><input value={recipient.name} onChange={(e) => setRecipient({...recipient, name: e.target.value})} placeholder="Prof. Alex Chen" /></label>
-            <label><span>Email</span><input type="email" value={recipient.email} onChange={(e) => setRecipient({...recipient, email: e.target.value})} placeholder="alex@university.edu" /></label>
+      <section className="section-shell problem-section">
+        <div className="section-intro"><p className="section-kicker">The problem</p><h2>Important emails require more than writing.</h2><p>The hardest part is rarely the sentence. It is understanding the goal, assembling the right context and deciding what can safely be said.</p></div>
+        <div className="problem-grid">{problems.map(([title, description], index) => <article key={title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{description}</p></article>)}</div>
+      </section>
+
+      <section className="demo-section" id="demo">
+        <div className="section-shell">
+          <div className="demo-heading"><div><p className="section-kicker light">Interactive Product Demo</p><h2>See the agent make the workflow.</h2><p>Choose a scenario, run the simulation and inspect the plan behind the draft.</p></div><span className="demo-badge">Simulated agent execution</span></div>
+
+          <div className="scenario-tabs" role="tablist" aria-label="Demo scenarios">
+            {(Object.values(scenarios) as Scenario[]).map((item) => <button key={item.id} role="tab" aria-selected={scenarioId === item.id} onClick={() => selectScenario(item.id)}><small>{item.eyebrow}</small><strong>{item.label}</strong></button>)}
           </div>
-          <div className="field-row">
-            <label><span>Role</span><input value={recipient.role} onChange={(e) => setRecipient({...recipient, role: e.target.value})} placeholder="Professor" /></label>
-            <label><span>Organization</span><input value={recipient.organization} onChange={(e) => setRecipient({...recipient, organization: e.target.value})} placeholder="University" /></label>
+
+          <div className="demo-workspace">
+            <section className="demo-input" aria-label="Demo input">
+              <div className="workspace-label"><span>01</span><div><strong>Your request</strong><small>Pre-filled scenario</small></div></div>
+              <label htmlFor="demo-goal">Communication goal</label>
+              <textarea id="demo-goal" value={scenario.goal} readOnly />
+              <label>Materials</label>
+              <div className="material-list">{scenario.materials.map((material) => <div key={material}><span className="file-mark">DOC</span><div><strong>{material}</strong><small>Demo material · ready</small></div><i>✓</i></div>)}</div>
+              <button className="run-button" onClick={runDemo} disabled={status === "running"}>{status === "running" ? "Agent is working…" : status === "idle" ? "Run Agent" : "Run Again"}<span>→</span></button>
+              <p className="simulation-note">This static demo uses pre-authored mock data. No backend, external search or email provider is called.</p>
+            </section>
+
+            <section className="activity-panel" aria-live="polite">
+              <div className="workspace-label"><span>02</span><div><strong>Agent activity</strong><small>{status === "idle" ? "Waiting to start" : status === "running" ? "Workflow in progress" : "Workflow complete"}</small></div></div>
+              {status === "idle" ? <div className="activity-empty"><div className="pulse-core" /><h3>Ready to plan</h3><p>The planner will select only the agents this scenario needs.</p></div> : <div className="activity-list">
+                {scenario.steps.map((step, index) => {
+                  const complete = index < completedSteps;
+                  const active = status === "running" && index === completedSteps;
+                  return <div className={`activity-step ${complete ? "complete" : ""} ${active ? "active" : ""}`} key={step.title}><i>{complete ? "✓" : index + 1}</i><div><strong>{step.title}</strong><span>{step.detail}</span></div>{active && <b>Working</b>}</div>;
+                })}
+                <div className={`activity-step approval-step ${status === "ready" || status === "approved" || status === "rejected" ? "active" : ""}`}><i>○</i><div><strong>Waiting for your approval</strong><span>No external action has been taken</span></div></div>
+              </div>}
+            </section>
           </div>
 
-          <label className="upload">
-            <input type="file" multiple accept=".pdf,.docx,.txt" onChange={uploadFiles} />
-            <span className="upload-icon">＋</span>
-            <strong>Add supporting materials</strong>
-            <small>PDF, DOCX or TXT · up to 10 MB</small>
-          </label>
-          {documents.length > 0 && <div className="chips">{documents.map((doc) => <span key={doc.id}>↗ {doc.filename}</span>)}</div>}
-          {error && <p className="error">{error}</p>}
-          <button className="primary" disabled={busy || !goal.trim()}>{busy ? "Working…" : "Start agent"}<b>→</b></button>
-        </form>
-
-        <section className="panel result">
-          <div className="panel-head"><span>02</span><div><h2>Agent workspace</h2><p>{statusText}</p></div></div>
-          {!run && <div className="empty-state"><div className="orb"><i /><i /><i /></div><h3>Ready when you are</h3><p>Your plan, evidence trail, and reviewed draft will appear here.</p></div>}
-          {run && <>
-            <div className="intent-row"><span className="tag">{intentNames[run.state.intent] ?? run.state.intent}</span><small>{run.state.llm_call_count} model calls · {run.state.iteration_count} revisions</small></div>
-            <div className="timeline">
-              {run.state.execution_trace.map((event, index) => <div className="trace" key={`${event.actor}-${index}`}><i>✓</i><div><strong>{event.actor.replaceAll("_", " ")}</strong><p>{event.summary}</p></div></div>)}
+          {status !== "idle" && <div className="result-grid">
+            <div className="decision-card">
+              <button className="card-toggle" onClick={() => setPlannerOpen(!plannerOpen)} aria-expanded={plannerOpen}><div><small>Planner output</small><strong>Planner Decision</strong></div><span>{plannerOpen ? "−" : "+"}</span></button>
+              {plannerOpen && <div className="decision-content"><dl><div><dt>Intent</dt><dd>{scenario.intent}</dd></div><div><dt>Task</dt><dd>{scenario.task}</dd></div><div><dt>Complexity</dt><dd>{scenario.complexity}</dd></div><div><dt>Context used</dt><dd>{scenario.materials.join(" · ")}</dd></div></dl><p>Activated agents</p><div className="agent-route">{scenario.agents.map((agent, index) => <span key={agent}><b>{agent}</b>{index < scenario.agents.length - 1 && <Arrow />}</span>)}</div><small className="route-note">The planner selects a different workflow for each communication task.</small></div>}
             </div>
-            {run.state.missing_context.length > 0 && <div className="notice"><strong>Input required</strong>{run.state.missing_context.join(" · ")}</div>}
-            {draft && <div className="draft">
-              <div className="draft-title"><h3>Email preview</h3><span>{run.state.approval_status.toLowerCase()}</span></div>
-              <label><span>To</span><input value={draft.recipient} onChange={(e) => setDraft({...draft, recipient: e.target.value})} /></label>
-              <label><span>Subject</span><input value={draft.subject} onChange={(e) => setDraft({...draft, subject: e.target.value})} /></label>
-              <textarea value={draft.body} onChange={(e) => setDraft({...draft, body: e.target.value})} />
-              {draft.attachments.length > 0 && <p className="attachments">Attachments · {draft.attachments.join(", ")}</p>}
-              {ready && <div className="actions"><button type="button" className="secondary" onClick={saveDraft} disabled={busy}>Save edit</button><button type="button" className="reject" onClick={() => decide("reject")} disabled={busy}>Reject</button><button type="button" className="approve" onClick={() => decide("approve")} disabled={busy}>Approve mock send →</button></div>}
-            </div>}
-          </>}
-        </section>
-      </div>
-      <footer><span>Evidence grounded</span><span>Human approved</span><span>Traceable by design</span></footer>
+
+            <div className="evidence-card"><div className="card-heading"><div><small>Grounded context</small><h3>Evidence Used</h3></div><span>Demo Evidence</span></div><div className="evidence-list">{scenario.evidence.map((item) => <article key={item.title}><div><strong>{item.title}</strong>{item.simulated && <b>Simulated profile</b>}</div><small>Source · {item.source}</small><p>{item.content}</p></article>)}</div>{scenario.id === "phd" && <p className="evidence-disclaimer">Professor Alex Smith and Example University are fictional and used only for product demonstration.</p>}</div>
+          </div>}
+
+          {(status === "ready" || status === "approved" || status === "rejected") && <section className="email-preview">
+            <div className="email-toolbar"><div><small>Action preview</small><h3>Email Preview</h3></div><span className={`status-pill ${status}`}>{status === "ready" ? "Ready for approval" : status === "approved" ? "Approved" : "Rejected"}</span></div>
+            <div className="email-meta"><label><span>To</span><input value={scenario.email.to} readOnly /></label><label><span>Subject</span><input value={subject} onChange={(event) => setSubject(event.target.value)} readOnly={!editing} /></label></div>
+            <label className="body-label"><span>Body</span><textarea value={body} onChange={(event) => setBody(event.target.value)} readOnly={!editing} /></label>
+            <div className="attachment-row"><span>Attachments</span>{scenario.email.attachments.map((file) => <b key={file}>{file}</b>)}</div>
+            {status === "ready" && <div className="email-actions"><button className="text-button" onClick={() => setEditing(!editing)}>{editing ? "Save changes" : "Edit draft"}</button><button className="reject-button" onClick={() => { setEditing(false); setStatus("rejected"); }}>Reject</button><button className="approve-button" onClick={approve}>Approve <span>→</span></button></div>}
+            {status === "approved" && <div className="outcome approved-outcome"><strong>✓ Approved</strong><p>Demo only — in the production workflow, the approved email would be passed to the connected email provider for sending.</p></div>}
+            {status === "rejected" && <div className="outcome rejected-outcome"><strong>Task cancelled</strong><p>The draft was rejected. No email was sent and no external action was taken.</p></div>}
+          </section>}
+        </div>
+      </section>
+
+      <section className="control-section section-shell">
+        <div className="control-copy"><p className="section-kicker">Human in the loop</p><h2>AI works. You stay in control.</h2><p>ContextMail can understand, plan, research, draft and review. But important external actions remain a human decision.</p><strong>No important external action without user approval.</strong></div>
+        <div className="control-flow"><div><small>AI work</small><strong>Plan · Prepare · Draft · Review</strong></div><Arrow /><div className="control-highlight"><small>Decision point</small><strong>Human Approval</strong></div><Arrow /><div><small>Connected system</small><strong>External Action</strong></div></div>
+      </section>
+
+      <section className="how-section" id="how-it-works"><div className="section-shell"><div className="section-intro"><p className="section-kicker">Product workflow</p><h2>How ContextMail works.</h2><p>One goal enters. A task-specific, evidence-aware workflow comes out.</p></div><div className="how-grid">{howItWorks.map(([number, title, description]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}</div></div></section>
+
+      <section className="architecture-section section-shell" id="architecture">
+        <div className="section-intro"><p className="section-kicker">System design</p><h2>Planner-led, not pipeline-bound.</h2><p>The workflow adapts to the task, shares traceable state and loops back when review finds a problem.</p></div>
+        <div className="architecture-diagram" role="img" aria-label="ContextMail architecture from user goal through planner, dynamic agents, shared state, review and human approval">
+          <div className="arch-node input-node"><small>Input</small><strong>User Goal + Materials</strong></div><span className="arch-down">↓</span>
+          <div className="arch-node primary-node"><small>Orchestrator</small><strong>Planner Agent</strong></div><span className="arch-down">↓</span>
+          <p className="routing-label">Dynamic routing</p>
+          <div className="arch-agents"><div><strong>Context</strong><small>Read materials</small></div><div><strong>Research</strong><small>Find missing context</small></div><div><strong>Writer</strong><small>Create draft</small></div></div>
+          <span className="arch-down">↓</span><div className="arch-node shared-node"><small>Traceable workspace</small><strong>Shared State + Evidence</strong></div><span className="arch-down">↓</span>
+          <div className="arch-review"><div className="arch-node"><strong>Writer Agent</strong></div><Arrow /><div className="arch-node"><strong>Reviewer Agent</strong></div><span className="revision-loop">↶ Revise / gather evidence</span></div><span className="arch-down">↓</span>
+          <div className="arch-node approval-node"><small>Safety boundary</small><strong>Human Approval</strong></div><span className="arch-down">↓</span><div className="arch-node action-node"><strong>Email Action</strong><small>Mocked in current MVP</small></div>
+        </div>
+      </section>
+
+      <section className="comparison-section"><div className="section-shell"><div className="section-intro"><p className="section-kicker light">The product decision</p><h2>Why not just use a single prompt?</h2><p>Different communication tasks need different workflows, context and verification depth.</p></div><div className="comparison-grid"><article className="single-prompt"><small>Traditional AI Email Writer</small><h3>Prompt → LLM → Email</h3><ul><li>User must organize all context</li><li>The same workflow handles every task</li><li>Limited verification</li><li>Weak handling of missing information</li></ul></article><article className="agent-system"><small>ContextMail</small><h3>Goal → Plan → Adapt → Verify</h3><ul><li>Planner determines what the task needs</li><li>Only relevant agents are activated</li><li>Claims are grounded in evidence</li><li>Review can trigger re-planning</li></ul></article></div><p className="comparison-callout">The agent architecture exists to make the workflow fit the task — not to add complexity for its own sake.</p></div></section>
+
+      <section className="evaluation-section section-shell" id="evaluation"><div className="section-intro"><p className="section-kicker">Evaluation</p><h2>How we evaluate it.</h2><p>Quality means more than fluent writing. The evaluation framework tracks whether the system understood, completed and grounded the task.</p></div><div className="metric-grid">{evaluation.map(([title, description]) => <article key={title}><h3>{title}</h3><p>{description}</p><span>Metric defined</span></article>)}</div><div className="benchmark-note"><i>↗</i><div><strong>Evaluation framework implemented.</strong><p>Benchmark testing is in progress. No experimental results are claimed yet.</p></div></div></section>
+
+      <section className="roadmap-section"><div className="section-shell"><div className="section-intro"><p className="section-kicker light">Roadmap</p><h2>Built as an honest MVP.</h2><p>The portfolio separates what works today from what comes next.</p></div><div className="roadmap-grid"><article><small>Current</small>{["Planner-based orchestration", "Dynamic agent routing", "Context processing", "Evidence structure", "Writer / Reviewer workflow", "Human approval design", "Interactive static demo"].map(item => <p key={item}><span>✓</span>{item}</p>)}</article><article><small>Next</small>{["Real research provider", "Microsoft Graph Outlook integration", "Benchmark evaluation", "User testing", "Personalization"].map(item => <p key={item}><span>○</span>{item}</p>)}</article></div></div></section>
+
+      <footer className="site-footer"><div><a className="brand footer-brand" href="#top">Context<span>Mail</span></a><p>From materials to ready-to-send emails — planned, grounded and human-approved.</p></div><div><a href="#demo">Interactive Demo</a><a href="#architecture">Architecture</a><a href="https://github.com/nbrhyq/ContextMail" target="_blank" rel="noreferrer">GitHub ↗</a></div><small>AI Communication Agent · Portfolio MVP</small></footer>
     </main>
   );
 }
