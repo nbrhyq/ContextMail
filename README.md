@@ -71,7 +71,8 @@ flowchart TD
 
 The deployed site is a static product demonstration designed for portfolio review. It includes:
 
-- three selectable communication scenarios;
+- an editable natural-language goal with three example prompts;
+- simulated Planner intent recognition after the user runs the agent;
 - animated agent activity rather than an instant result;
 - scenario-specific dynamic routing;
 - expandable Planner Decision;

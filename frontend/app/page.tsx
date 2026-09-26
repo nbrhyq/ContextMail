@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 type ScenarioId = "job" | "phd" | "school";
 type DemoStatus = "idle" | "running" | "ready" | "approved" | "rejected";
@@ -142,6 +142,7 @@ function Arrow() {
 
 export default function Home() {
   const [scenarioId, setScenarioId] = useState<ScenarioId>("phd");
+  const [goal, setGoal] = useState(scenarios.phd.goal);
   const [status, setStatus] = useState<DemoStatus>("idle");
   const [completedSteps, setCompletedSteps] = useState(0);
   const [plannerOpen, setPlannerOpen] = useState(true);
@@ -151,23 +152,36 @@ export default function Home() {
   const runToken = useRef(0);
   const scenario = scenarios[scenarioId];
 
-  useEffect(() => {
+  function resetForScenario(id: ScenarioId) {
+    const nextScenario = scenarios[id];
     runToken.current += 1;
+    setScenarioId(id);
+    setGoal(nextScenario.goal);
     setStatus("idle");
     setCompletedSteps(0);
     setEditing(false);
-    setSubject(scenario.email.subject);
-    setBody(scenario.email.body);
-  }, [scenario, scenarioId]);
+    setSubject(nextScenario.email.subject);
+    setBody(nextScenario.email.body);
+  }
+
+  function inferScenario(input: string): ScenarioId {
+    const text = input.toLowerCase();
+    if (/phd|professor|supervisor|research proposal|doctoral|博士|导师|套磁/.test(text)) return "phd";
+    if (/job|recruiter|resume|cv|application|position|求职|招聘|职位/.test(text)) return "job";
+    return "school";
+  }
 
   async function runDemo() {
+    const detectedId = inferScenario(goal);
+    const detectedScenario = scenarios[detectedId];
     const token = ++runToken.current;
+    setScenarioId(detectedId);
     setStatus("running");
     setCompletedSteps(0);
     setEditing(false);
-    setSubject(scenario.email.subject);
-    setBody(scenario.email.body);
-    for (let index = 1; index <= scenario.steps.length; index += 1) {
+    setSubject(detectedScenario.email.subject);
+    setBody(detectedScenario.email.body);
+    for (let index = 1; index <= detectedScenario.steps.length; index += 1) {
       await new Promise((resolve) => window.setTimeout(resolve, 420));
       if (runToken.current !== token) return;
       setCompletedSteps(index);
@@ -177,7 +191,7 @@ export default function Home() {
   }
 
   function selectScenario(id: ScenarioId) {
-    setScenarioId(id);
+    resetForScenario(id);
     document.getElementById("demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -230,20 +244,21 @@ export default function Home() {
 
       <section className="demo-section" id="demo">
         <div className="section-shell">
-          <div className="demo-heading"><div><p className="section-kicker light">Interactive Product Demo</p><h2>See the agent make the workflow.</h2><p>Choose a scenario, run the simulation and inspect the plan behind the draft.</p></div><span className="demo-badge">Simulated agent execution</span></div>
+          <div className="demo-heading"><div><p className="section-kicker light">Interactive Product Demo</p><h2>Describe the goal. Let the agent decide.</h2><p>Start with an example or edit the request. The Planner identifies the intent and selects the workflow after you run it.</p></div><span className="demo-badge">Simulated agent execution</span></div>
 
-          <div className="scenario-tabs" role="tablist" aria-label="Demo scenarios">
-            {(Object.values(scenarios) as Scenario[]).map((item) => <button key={item.id} role="tab" aria-selected={scenarioId === item.id} onClick={() => selectScenario(item.id)}><small>{item.eyebrow}</small><strong>{item.label}</strong></button>)}
+          <div className="example-label"><span>Try an example</span><small>Examples fill the input — they do not manually set the final intent.</small></div>
+          <div className="scenario-tabs" aria-label="Example prompts">
+            {(Object.values(scenarios) as Scenario[]).map((item) => <button key={item.id} aria-pressed={goal === item.goal} onClick={() => selectScenario(item.id)}><small>{item.eyebrow}</small><strong>{item.label}</strong></button>)}
           </div>
 
           <div className="demo-workspace">
             <section className="demo-input" aria-label="Demo input">
               <div className="workspace-label"><span>01</span><div><strong>Your request</strong><small>Pre-filled scenario</small></div></div>
               <label htmlFor="demo-goal">Communication goal</label>
-              <textarea id="demo-goal" value={scenario.goal} readOnly />
+              <textarea id="demo-goal" value={goal} onChange={(event) => { setGoal(event.target.value); setStatus("idle"); setCompletedSteps(0); }} />
               <label>Materials</label>
               <div className="material-list">{scenario.materials.map((material) => <div key={material}><span className="file-mark">DOC</span><div><strong>{material}</strong><small>Demo material · ready</small></div><i>✓</i></div>)}</div>
-              <button className="run-button" onClick={runDemo} disabled={status === "running"}>{status === "running" ? "Agent is working…" : status === "idle" ? "Run Agent" : "Run Again"}<span>→</span></button>
+              <button className="run-button" onClick={runDemo} disabled={status === "running" || !goal.trim()}>{status === "running" ? "Planner is identifying intent…" : status === "idle" ? "Run Agent" : "Run Again"}<span>→</span></button>
               <p className="simulation-note">This static demo uses pre-authored mock data. No backend, external search or email provider is called.</p>
             </section>
 
