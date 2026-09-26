@@ -77,14 +77,27 @@ class Recipient(BaseModel):
 
 
 class Evidence(BaseModel):
-    id: str = Field(default_factory=lambda: f"evidence_{uuid4().hex[:12]}")
-    source_type: EvidenceSourceType
-    source: str
+    evidence_id: str = Field(default_factory=lambda: f"evidence_{uuid4().hex[:12]}")
+    claim: str
     content: str
+    source_name: str
+    source_url: Optional[str] = None
+    source_type: EvidenceSourceType
     relevance: str
     verified: bool = False
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    filename: Optional[str] = None
+    document_location: Optional[str] = None
     metadata: Dict[str, Any] = Field(default_factory=dict)
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @property
+    def id(self) -> str:
+        """Compatibility accessor for existing state and portfolio demo code."""
+        return self.evidence_id
+
+    @property
+    def source(self) -> str:
+        return self.source_name
 
 
 class PlanStep(BaseModel):
@@ -144,4 +157,3 @@ class TraceEvent(BaseModel):
     latency_ms: Optional[int] = Field(default=None, ge=0)
     token_usage: Optional[int] = Field(default=None, ge=0)
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-

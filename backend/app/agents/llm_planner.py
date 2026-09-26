@@ -32,9 +32,16 @@ class LLMPlanner:
             )
             decision = PlannerDecision.model_validate(result)
             # Deterministic safety checks take precedence over model optimism.
+            if fallback.confidence >= 0.8:
+                decision.intent = fallback.intent
+                decision.confidence = max(decision.confidence, fallback.confidence)
             if fallback.missing_context:
                 decision.missing_context = list(dict.fromkeys(decision.missing_context + fallback.missing_context))
                 decision.next_action = fallback.next_action
+            if fallback.complexity.value == "LOW":
+                decision.agents_required = fallback.agents_required
+                decision.tools_required = fallback.tools_required
+                decision.execution_plan = fallback.execution_plan
             return decision
         except Exception:
             return fallback

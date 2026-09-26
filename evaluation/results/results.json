@@ -1,0 +1,2689 @@
+{
+  "generated_at": "2026-09-26T09:22:26.743413+00:00",
+  "live": false,
+  "summary": {
+    "sample_count": 80,
+    "distribution": {
+      "job": 25,
+      "phd": 25,
+      "school": 20,
+      "ambiguous": 10
+    },
+    "contextmail_intent_accuracy": 1.0,
+    "baseline": {
+      "task_completion_rate": 0.725,
+      "unsupported_claim_rate": 0.0,
+      "mean_quality_score": 0.725,
+      "mean_time_to_ready_ms": 0.0,
+      "mean_llm_calls": 0.0,
+      "input_tokens": "unavailable",
+      "output_tokens": "unavailable",
+      "estimated_cost_usd": "unavailable"
+    },
+    "contextmail": {
+      "task_completion_rate": 1.0,
+      "unsupported_claim_rate": 0.0,
+      "mean_quality_score": 1.0,
+      "mean_time_to_ready_ms": 3.51,
+      "mean_llm_calls": 0.0,
+      "input_tokens": "unavailable",
+      "output_tokens": "unavailable",
+      "estimated_cost_usd": "unavailable"
+    },
+    "by_complexity": {
+      "easy": {
+        "baseline": 1.0,
+        "contextmail": 1.0
+      },
+      "medium": {
+        "baseline": 0.84,
+        "contextmail": 1.0
+      },
+      "hard": {
+        "baseline": 0.5385,
+        "contextmail": 1.0
+      }
+    }
+  },
+  "cases": [
+    {
+      "case_id": "job-001",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.01,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 5.64,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-002",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.96,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-003",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.8,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-004",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.23,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-005",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.72,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-006",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.83,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-007",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.2,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-008",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.19,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-009",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.54,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-010",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.68,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-011",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.13,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-012",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.61,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-013",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.59,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-014",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.65,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-015",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.12,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-016",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.22,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-017",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.91,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-018",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.09,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-019",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.13,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-020",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.12,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-021",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.66,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-022",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.5,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-023",
+      "complexity": "medium",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.72,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-024",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.54,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "job-025",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "JOB_APPLICATION",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.57,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-001",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.81,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-002",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.09,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-003",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.51,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-004",
+      "complexity": "medium",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.71,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-005",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.09,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-006",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.06,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-007",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.72,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-008",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 4.21,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-009",
+      "complexity": "medium",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.86,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-010",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.77,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-011",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.12,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-012",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.04,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-013",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.63,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-014",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.71,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-015",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.58,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-016",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.54,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-017",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 4.21,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-018",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.05,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-019",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.61,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-020",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.54,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-021",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.06,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-022",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.09,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-023",
+      "complexity": "medium",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.69,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-024",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.64,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "phd-025",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "PHD_OUTREACH",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.54,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-001",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.17,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-002",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.58,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-003",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.2,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-004",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.28,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-005",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.92,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-006",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.88,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-007",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.18,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-008",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.69,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-009",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.3,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-010",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 4.46,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-011",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.53,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-012",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.01,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 4.03,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-013",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.2,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-014",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.11,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-015",
+      "complexity": "medium",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.73,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "context_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-016",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.11,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-017",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.51,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "research_agent",
+          "writer_agent",
+          "reviewer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-018",
+      "complexity": "easy",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.14,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-019",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.68,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "school-020",
+      "complexity": "hard",
+      "expected_behavior": "DRAFT",
+      "baseline": {
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0
+      },
+      "contextmail": {
+        "predicted_intent": "SCHOOL_AFFAIRS",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.06,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "READY_FOR_APPROVAL",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-001",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.68,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-002",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.68,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-003",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.63,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-004",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.69,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-005",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.66,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-006",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.65,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-007",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.69,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-008",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 3.07,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-009",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 2.64,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    },
+    {
+      "case_id": "ambiguous-010",
+      "complexity": "hard",
+      "expected_behavior": "ASK_USER",
+      "baseline": {
+        "completed": false,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 0.0,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 0.0
+      },
+      "contextmail": {
+        "predicted_intent": "UNCERTAIN",
+        "intent_correct": true,
+        "completed": true,
+        "unsupported_claims": 0,
+        "time_to_ready_ms": 20.6,
+        "llm_calls": 0,
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null,
+        "quality_score": 1.0,
+        "selected_agents": [
+          "writer_agent"
+        ],
+        "status": "NEEDS_INPUT",
+        "errors": []
+      }
+    }
+  ]
+}

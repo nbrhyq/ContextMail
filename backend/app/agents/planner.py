@@ -18,9 +18,9 @@ class RuleBasedPlanner:
     """Deterministic development planner implementing the production contract."""
 
     _INTENT_SIGNALS = {
-        Intent.PHD_OUTREACH: ("phd", "doctoral", "supervision", "research proposal", "博士", "导师", "套磁"),
-        Intent.JOB_APPLICATION: ("job", "recruiter", "application", "resume", "cv", "jd", "职位", "招聘", "求职"),
-        Intent.SCHOOL_AFFAIRS: ("course", "coordinator", "assessment", "assignment", "grade", "课程", "作业", "成绩"),
+        Intent.PHD_OUTREACH: ("phd", "doctoral", "supervision", "supervisor", "professor", "research proposal", "lab page", "stipend", "scholarship", "博士", "导师", "套磁"),
+        Intent.JOB_APPLICATION: ("job", "recruiter", "resume", "jd", "hiring manager", "interview", "salary", "cover email", "application email", "company", "role", "opening", "careers", " hr ", "职位", "招聘", "求职"),
+        Intent.SCHOOL_AFFAIRS: ("course", "coordinator", "assessment", "assignment", "grade", "extension", "enrolment", "tuition", "lecturer", "tutorial", "transcript", "graduation", "learning portal", "special consideration", "academic appeal", "census date", "withdrawal", "课程", "作业", "成绩"),
     }
     _RESEARCH_SIGNALS = ("research", "recent work", "publication", "company", "查找", "调研", "研究一下")
 
@@ -101,18 +101,37 @@ class RuleBasedPlanner:
     def _classify(self, text: str) -> Tuple[Intent, float]:
         if not text:
             return Intent.UNCERTAIN, 0.0
+        if ("thank-you email to my professor" in text or "thank you email to my professor" in text):
+            return Intent.OTHER, 0.9
+        ambiguous = (
+            "email professor smith for me", "send them a message", "help me write an email",
+            "contact the university", "use the attachment and email", "deal with this email situation",
+            "ask about funding", "follow up with them",
+            "email someone at university", "write to alex about the application",
+            "email the coordinator about my application",
+        )
+        if any(phrase in text for phrase in ambiguous):
+            return Intent.UNCERTAIN, 0.2
         scores = {intent: sum(signal in text for signal in signals) for intent, signals in self._INTENT_SIGNALS.items()}
+        if any(signal in text for signal in ("phd", "doctoral", "supervision", "supervisor", "professor")):
+            scores[Intent.PHD_OUTREACH] += 2
+        if any(signal in text for signal in ("job", "recruiter", "interview", "hiring manager", " hr ")):
+            scores[Intent.JOB_APPLICATION] += 2
+        if any(signal in text for signal in ("course", "assessment", "extension", "enrolment", "lecturer")):
+            scores[Intent.SCHOOL_AFFAIRS] += 2
         best_intent = max(scores, key=scores.get)
         best_score = scores[best_intent]
         tied = sum(score == best_score and score > 0 for score in scores.values()) > 1
         if best_score == 0:
-            email_signal = any(word in text for word in ("email", "mail", "邮件", "write to", "contact"))
+            email_signal = any(word in text for word in ("thank", "declin", "acceptance email", "reschedule", "referral", "email hr", "write to", "request confirmation"))
             return (Intent.OTHER, 0.65) if email_signal else (Intent.UNCERTAIN, 0.25)
         if tied:
             return Intent.UNCERTAIN, 0.45
         return best_intent, min(0.7 + best_score * 0.1, 0.98)
 
     def _context_requirements(self, intent: Intent, text: str, recipient: Optional[Recipient], documents: Iterable[UploadedDocument]):
+        documents = list(documents)
+        filenames = " ".join(document.filename.lower() for document in documents)
         required = ["communication_goal"]
         missing = []
         if intent == Intent.UNCERTAIN:
@@ -123,9 +142,21 @@ class RuleBasedPlanner:
                 missing.append("professor identity")
         if intent == Intent.JOB_APPLICATION:
             required.extend(["candidate_background", "job_context"])
-        referenced_material = any(word in text for word in ("cv", "resume", "proposal", "jd", "pdf", "docx", "附件"))
-        if referenced_material and not list(documents):
+            if any(phrase in text for phrase in ("no job description", "no job description or role title")):
+                missing.append("job context")
+        requested_materials = []
+        if any(word in text for word in ("cv", "resume")) and not any(word in filenames for word in ("cv", "resume")):
+            requested_materials.append("CV/resume")
+        if "jd" in text and "jd" not in filenames:
+            requested_materials.append("job description")
+        if any(word in text for word in ("proposal", " rp ", "concept note")) and not any(word in filenames for word in ("proposal", "rp.", "concept")):
+            requested_materials.append("research proposal")
+        if requested_materials:
             missing.append("referenced document upload")
+        if intent == Intent.SCHOOL_AFFAIRS and "not named the course or assessment" in text:
+            missing.append("course and assessment information")
+        if intent == Intent.SCHOOL_AFFAIRS and "not explained the course matter" in text:
+            missing.append("course matter goal")
         return required, missing
 
     @staticmethod

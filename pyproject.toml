@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
   "fastapi>=0.115,<1",
+  "httpx>=0.27,<1",
   "pydantic>=2.8,<3",
   "pydantic-settings>=2.4,<3",
   "python-multipart>=0.0.9,<1",
@@ -18,12 +19,12 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-  "httpx>=0.27,<1",
   "pytest>=8,<9",
   "pytest-asyncio>=0.23,<1",
 ]
 workflow = ["langgraph>=0.2,<1"]
 documents = ["pypdf>=5,<6", "python-docx>=1.1,<2"]
+outlook = ["msal>=1.31,<2"]
 
 [tool.setuptools]
 package-dir = {"" = "backend"}
@@ -35,4 +36,3 @@ where = ["backend"]
 pythonpath = ["backend"]
 testpaths = ["backend/tests"]
 addopts = "-q"
-

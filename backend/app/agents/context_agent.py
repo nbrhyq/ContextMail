@@ -19,11 +19,14 @@ class ContextAgent:
                 content = (await self.reader.read(Path(document.local_path))).strip()
                 if content:
                     collected.append(Evidence(
+                        claim=f"User-provided information from {document.filename}",
                         source_type=EvidenceSourceType.USER_DOCUMENT,
-                        source=document.filename,
+                        source_name=document.filename,
                         content=content[:12000],
                         relevance=f"Uploaded material relevant to: {state.goal}",
                         verified=True,
+                        filename=document.filename,
+                        document_location="full document (page/section unavailable from extractor)",
                     ))
                 state.execution_trace.append(TraceEvent(
                     actor="context_agent", action="read_document", status="COMPLETED",
@@ -37,4 +40,3 @@ class ContextAgent:
                 ))
         state.evidence.extend(collected)
         return state
-

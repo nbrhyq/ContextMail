@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pathlib import Path
 from typing import List, Protocol
 
@@ -9,7 +11,7 @@ class DocumentReader(Protocol):
 
 
 class WebSearchTool(Protocol):
-    async def search(self, query: str) -> List[Evidence]: ...
+    async def search(self, query: str, *, preferred_domains: List[str] | None = None) -> List[Evidence]: ...
 
 
 class RetrievalTool(Protocol):
@@ -18,4 +20,3 @@ class RetrievalTool(Protocol):
 
 class EmailTool(Protocol):
     async def send(self, draft: EmailDraft, approval: ApprovalStatus) -> str: ...
-

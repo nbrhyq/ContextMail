@@ -12,6 +12,7 @@ from app.graph.state import WorkflowState
 from app.models.domain import ApprovalStatus, NextAction, ReviewDecision, TraceEvent
 from app.tools.document_reader import LocalDocumentReader
 from app.services.llm_service import create_llm
+from app.tools.web_search import create_search_tool
 
 
 class GraphState(TypedDict):
@@ -19,12 +20,12 @@ class GraphState(TypedDict):
 
 
 class ContextMailWorkflow:
-    def __init__(self, use_llm: bool = True) -> None:
+    def __init__(self, use_llm: bool = True, llm=None) -> None:
         self.planner = RuleBasedPlanner()
-        llm = create_llm() if use_llm else None
+        llm = llm or (create_llm() if use_llm else None)
         self.llm_planner = LLMPlanner(llm, self.planner) if llm else None
         self.context_agent = ContextAgent(LocalDocumentReader())
-        self.research_agent = ResearchAgent()
+        self.research_agent = ResearchAgent(create_search_tool())
         self.writer = WriterAgent(llm)
         self.reviewer = ReviewerAgent(llm)
         self.graph = self._build()
@@ -70,6 +71,10 @@ class ContextMailWorkflow:
         else:
             state = self.planner.apply(state)
         state.workflow_status = "PLANNED"
+        # LIVE evaluation showed repeated reviewer loops added large latency without
+        # improving completion. Permit one targeted retry, then stop/ask the user.
+        if "reviewer_agent" in state.selected_agents:
+            state.max_iterations = min(state.max_iterations, 1)
         state.execution_trace.append(TraceEvent(
             actor="planner", action="plan", status="COMPLETED",
             summary=f"Intent {state.intent.value}; selected {', '.join(state.selected_agents)}",
@@ -134,14 +139,14 @@ class ContextMailWorkflow:
         state = graph_state["data"]
         if state.review_result and state.review_result.decision == ReviewDecision.PASS:
             return "ready"
-        return "replan" if state.can_replan else "stop"
+        if state.can_replan:
+            return "replan"
+        state.workflow_status = "FAILED"
+        return "stop"
 
     @staticmethod
     def _after_replan(graph_state: GraphState) -> str:
         state = graph_state["data"]
-        if not state.can_replan:
-            state.workflow_status = "FAILED"
-            return "stop"
         if state.review_result and state.review_result.decision == ReviewDecision.NEED_MORE_EVIDENCE:
             return "research"
         if state.review_result and state.review_result.decision == ReviewDecision.NEED_USER_INFORMATION:

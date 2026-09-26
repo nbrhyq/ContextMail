@@ -19,21 +19,24 @@ class ReviewerAgent:
             missing.append("complete subject and body")
         if draft and "[unsupported]" in draft.body.lower():
             unsupported.append("Draft contains an explicitly unsupported placeholder")
+        needs_evidence = bool(draft and "[needs evidence]" in draft.body.lower())
 
         if missing:
             decision = ReviewDecision.NEED_USER_INFORMATION
+        elif needs_evidence:
+            decision = ReviewDecision.NEED_MORE_EVIDENCE
         elif unsupported:
             decision = ReviewDecision.REVISE
         else:
             decision = ReviewDecision.PASS
         fallback = ReviewResult(
-            factuality="PASS" if not unsupported else "FAIL",
+            factuality="PASS" if not (unsupported or needs_evidence) else "FAIL",
             personalization="PASS" if state.recipient else "LIMITED",
             tone="PASS",
             unsupported_claims=unsupported,
             missing_information=missing,
             decision=decision,
-            revision_instructions=["Remove or verify unsupported statements"] if unsupported else [],
+            revision_instructions=["Collect reliable evidence or weaken/remove the claim"] if (unsupported or needs_evidence) else [],
         )
         state.review_result = fallback
         if self.llm and draft:
@@ -54,7 +57,8 @@ class ReviewerAgent:
                 decision = state.review_result.decision
             except Exception as exc:
                 state.errors.append(f"Ollama reviewer fallback used: {exc}")
-        state.llm_call_count += 1
+        if self.llm:
+            state.llm_call_count += 1
         state.execution_trace.append(TraceEvent(
             actor="reviewer_agent", action="review", status="COMPLETED",
             summary=f"Review decision: {decision.value}", token_usage=0,

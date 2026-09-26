@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from uuid import uuid4
 
+import httpx
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 
@@ -14,7 +15,7 @@ from app.models.domain import (
 )
 from app.models.run import RunRecord
 from app.services.run_store import SQLiteRunStore
-from app.tools.mock_tools import MockEmailTool
+from app.tools.outlook_email import create_email_tool
 
 
 router = APIRouter()
@@ -138,7 +139,17 @@ async def approve_run(run_id: str) -> RunRecord:
     if record.status != RunStatus.READY_FOR_APPROVAL or not record.state.draft:
         raise HTTPException(status_code=409, detail="Run is not ready for approval")
     record.state.approval_status = ApprovalStatus.APPROVED
-    record.mock_message_id = await MockEmailTool().send(record.state.draft, record.state.approval_status)
+    attachment_paths = [
+        document.local_path for document in record.state.uploaded_documents
+        if document.local_path and document.filename in record.state.draft.attachments
+    ]
+    send_draft = record.state.draft.model_copy(update={"attachments": attachment_paths})
+    try:
+        record.mock_message_id = await create_email_tool().send(send_draft, record.state.approval_status)
+    except (PermissionError, ValueError, FileNotFoundError, RuntimeError) as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except httpx.HTTPError as exc:
+        raise HTTPException(status_code=502, detail="Outlook did not accept the message") from exc
     record.status = RunStatus.SENT
     record.state.workflow_status = "SENT"
     return _store.save(record)

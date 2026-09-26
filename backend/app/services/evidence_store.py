@@ -8,12 +8,11 @@ class EvidenceStore:
 
     @staticmethod
     def merge(existing: List[Evidence], incoming: Iterable[Evidence]) -> List[Evidence]:
-        by_id = {item.id: item for item in existing}
+        by_id = {item.evidence_id: item for item in existing}
         for item in incoming:
-            by_id[item.id] = item
+            by_id[item.evidence_id] = item
         return list(by_id.values())
 
     @staticmethod
     def verified(evidence: Iterable[Evidence]) -> List[Evidence]:
         return [item for item in evidence if item.verified]
-

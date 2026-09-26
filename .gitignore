@@ -12,3 +12,4 @@ frontend/.next/
 frontend/out/
 frontend/.env.local
 .pnpm-store/
+.contextmail/

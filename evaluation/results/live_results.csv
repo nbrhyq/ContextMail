@@ -1,0 +1,13 @@
+case_id,complexity,baseline_completed,contextmail_completed,intent_correct
+job-001,easy,True,True,True
+job-002,medium,True,False,True
+job-003,hard,True,False,False
+phd-001,hard,True,False,True
+phd-002,easy,True,True,True
+phd-003,hard,True,False,True
+school-001,easy,True,True,True
+school-002,hard,True,False,True
+school-003,medium,True,True,True
+ambiguous-001,hard,False,True,True
+ambiguous-002,hard,False,True,True
+ambiguous-003,hard,False,True,True

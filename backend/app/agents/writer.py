@@ -34,7 +34,7 @@ class WriterAgent:
             subject=subjects[state.intent],
             body=body,
             attachments=[document.filename for document in state.uploaded_documents],
-            evidence_ids=[item.id for item in verified],
+            evidence_ids=[item.evidence_id for item in verified],
         )
         state.draft = fallback
         if self.llm:
@@ -47,7 +47,7 @@ class WriterAgent:
                     ),
                     user_prompt=(
                         f"GOAL:\n{state.goal}\n\nRECIPIENT:\n{state.recipient.model_dump_json() if state.recipient else '{}'}"
-                        f"\n\nVERIFIED EVIDENCE:\n{[{'id': item.id, 'content': item.content} for item in verified]}"
+                        f"\n\nVERIFIED EVIDENCE:\n{[{'id': item.evidence_id, 'claim': item.claim, 'content': item.content, 'source_url': item.source_url} for item in verified]}"
                         f"\n\nATTACHMENTS:\n{fallback.attachments}"
                     ),
                     schema=EmailDraft.model_json_schema(),
@@ -55,11 +55,12 @@ class WriterAgent:
                 generated = EmailDraft.model_validate(result)
                 generated.recipient = generated.recipient or recipient_address
                 generated.attachments = fallback.attachments
-                generated.evidence_ids = [item.id for item in verified]
+                generated.evidence_ids = [item.evidence_id for item in verified]
                 state.draft = generated
             except Exception as exc:
                 state.errors.append(f"Ollama writer fallback used: {exc}")
-        state.llm_call_count += 1
+        if self.llm:
+            state.llm_call_count += 1
         state.execution_trace.append(TraceEvent(
             actor="writer_agent", action="draft", status="COMPLETED",
             summary=f"Drafted email using {len(verified)} verified evidence item(s)",

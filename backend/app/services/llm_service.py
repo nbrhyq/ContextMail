@@ -17,6 +17,8 @@ class OllamaStructuredLLM:
         self.base_url = settings.ollama_base_url.rstrip("/")
         self.model = settings.llm_model
         self.timeout = settings.llm_timeout_seconds
+        self.total_input_tokens = 0
+        self.total_output_tokens = 0
 
     async def generate_structured(
         self, *, system_prompt: str, user_prompt: str, schema: Dict[str, Any]
@@ -35,6 +37,8 @@ class OllamaStructuredLLM:
             response = await client.post(f"{self.base_url}/api/chat", json=payload)
             response.raise_for_status()
         data = response.json()
+        self.total_input_tokens += int(data.get("prompt_eval_count", 0) or 0)
+        self.total_output_tokens += int(data.get("eval_count", 0) or 0)
         content = data.get("message", {}).get("content", "")
         if not content:
             raise ValueError("Ollama returned no structured content")

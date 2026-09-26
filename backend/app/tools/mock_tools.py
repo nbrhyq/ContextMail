@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pathlib import Path
 from typing import List
 from uuid import uuid4
@@ -11,7 +13,7 @@ class MockDocumentReader:
 
 
 class MockWebSearch:
-    async def search(self, query: str) -> List[Evidence]:
+    async def search(self, query: str, *, preferred_domains: List[str] | None = None) -> List[Evidence]:
         return []
 
 
@@ -26,4 +28,3 @@ class MockEmailTool:
         if approval != ApprovalStatus.APPROVED:
             raise PermissionError("Explicit user approval is required before email action")
         return f"mock_email_{uuid4().hex[:12]}"
-

@@ -11,6 +11,14 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://127.0.0.1:11434"
     llm_timeout_seconds: float = 120
     max_iterations: int = 3
+    search_provider: str = "mock"
+    brave_search_api_key: str = ""
+    search_max_results: int = 5
+    email_provider: str = "mock"
+    microsoft_client_id: str = ""
+    microsoft_tenant_id: str = "common"
+    microsoft_token_cache_path: str = ".contextmail/msal_token_cache.json"
+    microsoft_graph_base_url: str = "https://graph.microsoft.com/v1.0"
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -22,4 +30,3 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-
